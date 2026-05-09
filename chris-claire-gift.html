@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Gift for Chris & Claire</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3EC;
+    --parchment: #EDE5D8;
+    --gold: #B8955A;
+    --gold-light: #D4B483;
+    --ink: #2C2416;
+    --ink-mid: #6B5B3E;
+    --ink-light: #9C8A6E;
+  }
+
+  body {
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    padding: 2rem;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,149,90,0.08) 39px, rgba(184,149,90,0.08) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(184,149,90,0.08) 39px, rgba(184,149,90,0.08) 40px);
+    pointer-events: none;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--parchment);
+    max-width: 480px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    position: relative;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .card::before, .card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+  .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 2rem;
+    text-align: center;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--parchment);
+  }
+  .divider span {
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  /* PASSWORD SCREEN */
+  #password-screen p {
+    font-size: 13px;
+    color: var(--ink-mid);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    border: 1px solid var(--parchment);
+    border-bottom-color: var(--gold-light);
+    background: transparent;
+    padding: 0.75rem 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 3px;
+    outline: none;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  input[type="password"]:focus { border-bottom-color: var(--gold); }
+
+  .error {
+    font-size: 12px;
+    color: #9B3B3B;
+    text-align: center;
+    min-height: 1.2em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .error.visible { opacity: 1; }
+
+  button {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  button:hover { background: var(--ink-mid); }
+
+  /* GIFT SCREEN */
+  #gift-screen { display: none; animation: fadeUp 0.7s ease both; }
+
+  .message {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .voucher-box {
+    background: var(--cream);
+    border: 1px solid var(--parchment);
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .voucher-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .voucher-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .voucher-amount {
+    font-size: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .code-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .code {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: var(--ink);
+    letter-spacing: 3px;
+    background: white;
+    border: 1px solid var(--parchment);
+    padding: 0.75rem 1rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .code:hover { border-color: var(--gold-light); }
+
+  .copy-hint {
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 1px;
+  }
+
+  .copied-msg {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    min-height: 1em;
+    margin-top: 4px;
+  }
+  .copied-msg.show { opacity: 1; }
+
+  .redeem-link {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    border: 1px solid var(--parchment);
+    padding: 0.75rem;
+    transition: border-color 0.2s, color 0.2s;
+    margin-top: 1rem;
+  }
+  .redeem-link:hover { border-color: var(--gold-light); color: var(--gold); }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 1.5rem;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- PASSWORD SCREEN -->
+  <div id="password-screen">
+    <div class="ornament">✦ ✦ ✦</div>
+    <h1>A Gift for<br><em style="font-style:italic;">Chris & Claire</em></h1>
+    <p class="subtitle">On the occasion of their marriage</p>
+    <div class="divider"><span>✦</span></div>
+    <p class="message">Congratulations Chris and Claire. Now why not continue the celebrations with some reasonable quality meat, clothes or furniture.</p>
+    <p>You'll find the password tucked inside your card. Enter it below to reveal your gift.</p>
+    <input type="password" id="pwd-input" placeholder="· · · · · · · · · ·" autocomplete="off" />
+    <div class="error" id="error-msg">That's not quite right — check the card</div>
+    <button onclick="checkPassword()">Open gift</button>
+  </div>
+
+  <!-- GIFT SCREEN -->
+  <div id="gift-screen">
+    <div class="ornament">✦ ✦ ✦</div>
+    <h1>Congratulations<br><em style="font-style:italic;">Chris & Claire</em></h1>
+    <p class="subtitle">With love & best wishes</p>
+    <div class="divider"><span>✦</span></div>
+
+    <div class="voucher-box">
+      <p class="voucher-label">Your gift</p>
+      <p class="voucher-brand">John Lewis & Partners</p>
+      <p class="voucher-amount">£100</p>
+      <p class="code-label">Gift card code</p>
+      <div class="code" id="gift-code" onclick="copyCode()" title="Click to copy">XXXX-XXXX-XXXX-XXXX</div>
+      <p class="copy-hint">Click the code to copy it</p>
+      <p class="copied-msg" id="copied-msg">Copied!</p>
+    </div>
+
+    <a class="redeem-link" href="https://www.johnlewis.com/gift-cards" target="_blank">Redeem at johnlewis.com →</a>
+
+    <p class="footer-note">Redeemable online and in all John Lewis stores</p>
+  </div>
+
+</div>
+
+<script>
+  const CORRECT = "NeedlesslyComplicated";
+
+  document.getElementById('pwd-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+    document.getElementById('error-msg').classList.remove('visible');
+  });
+
+  function checkPassword() {
+    const val = document.getElementById('pwd-input').value;
+    if (val === CORRECT) {
+      document.getElementById('password-screen').style.display = 'none';
+      document.getElementById('gift-screen').style.display = 'block';
+    } else {
+      const err = document.getElementById('error-msg');
+      err.classList.add('visible');
+      document.getElementById('pwd-input').value = '';
+    }
+  }
+
+  function copyCode() {
+    const code = document.getElementById('gift-code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const msg = document.getElementById('copied-msg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
